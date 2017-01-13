@@ -4,7 +4,7 @@
 ####1.1 call 和 apply 的区别
 Function.prototype.call 和 Function.prototype.apply 都是非常常用的方法。它们的作用一模一样,区别仅在于传入参数形式的不同。
 apply 接受两个参数,第一个参数指定了函数体内 this 对象的指向,第二个参数为一个带下 标的集合,这个集合可以为数组,也可以为类数组,apply 方法把这个集合中的元素作为参数传 递给被调用的函数:
-```
+```js
 var func = function(a, b, c) {
     alert([a, b, c]); // [1, 2, 3]
 }
@@ -13,7 +13,7 @@ func.apply(null, [1, 2, 3])
 在这段代码中,参数 1、2、3 被放在数组中一起传入 func 函数,它们分别对应 func 参数列 表中的 a、b、c。
 
 call 传入的参数数量不固定,跟 apply 相同的是,第一个参数也是代表函数体内的 this 指向, 从第二个参数开始往后,每个参数被依次传入函数:
-```
+```js
 var func = function( a, b, c ){
     alert ( [ a, b, c ] ); // 输出 [ 1, 2, 3 ]
 };
@@ -26,7 +26,7 @@ func.call( null, 1, 2, 3 );
 ####1.2 call 和 apply 的用途
 (1) 改变 this 指向
 代码如下, 如果不用`call`修正this指向的话, 那个`func();`运行之后, 函数中的`this`指向就是`window`, 直接报错`// 输出:undefined`
-```
+```js
 document.getElementById( 'div1' ).onclick = function(){ 
     var func = function(){
         alert ( this.id ); // 输出:div1
@@ -36,7 +36,7 @@ document.getElementById( 'div1' ).onclick = function(){
 ```
 (2) 借用其他对象的方法
 函数的参数列表 arguments 是一个类数组对象,虽然它也有“下标”,但它并非真正的数组, 所以也不能像数组一样,进行排序操作或者往集合里添加一个新的元素。这种情况下,我们常常 会借用 Array.prototype 对象上的方法。比如想往 arguments 中添加一个新的元素,通常会借用 Array.prototype.push:
-```
+```js
 (function(){
     Array.prototype.push.call( arguments, 3 ); 
     console.log ( arguments ); // 输出[1,2,3]
@@ -44,7 +44,7 @@ document.getElementById( 'div1' ).onclick = function(){
 ```
 想把 arguments 转成真正的数组的时候,可以借用 Array.prototype.slice 方法;想截去 arguments 列表中的头一个元素时,又可以借用 Array.prototype.shift 方法。
 接下来, 我们腿短, 可以把“任意”对象传入
-```
+```js
 var a = {};
 Array.prototype.push.call(a, 'first');
 alert(a.length); // 1
@@ -58,7 +58,7 @@ alert(a[0]); // first
 ###2, 装饰者模式__AOP的应用
 类似`OC`的分类, 在需要给某个函数添加功能的时候, 很多时候我们不想去碰原函数,也许原函数是由其他同事编写的,里面的实现非常杂乱。甚 至在一个古老的项目中,这个函数的源代码被隐藏在一个我们不愿碰触的阴暗角落里。现在需要 一个办法,在不改变函数源代码的情况下,能给函数增加功能,这正是开放-封闭原则给我们指 出的光明道路。
 利用`AOP`(面向切面编程), 首先给出 Function.prototype.before 方法 和Function.prototype.after 方法:
-```
+```js
 Function.prototype.before = function(beforefn) {
     var _self = this; // 保存原函数的引用
     return function() { // 返回包含了原函数和新函数的'代理'函数
@@ -76,7 +76,7 @@ Function.prototype.after = function(afterfn) {
 }
 ```
 下面看个例子:
-```
+```html
 <html>
     <button id="button"></butotn>
     <script>
@@ -99,7 +99,7 @@ Function.prototype.after = function(afterfn) {
 ```
 再来一个例子:
 
-```
+```js
 window.onload = function() {
     alert(1);
 }
@@ -111,7 +111,7 @@ window.onload = (window.onload || function(){}).after(function() {
 
 ```
 经典的提交表单的例子:
-```
+```js
 Function.prototype.before = function(beforefn) {
     var _self = this;
     return function() {
@@ -150,7 +150,7 @@ submitBtn.onclick = function() {
 ```
 
 !!值得提到的是,上面的 AOP 实现是在 Function.prototype 上添加 before 和 after 方法,但许 多人不喜欢这种污染原型的方式,那么我们可以做一些变通,把原函数和新函数都作为参数传入 before 或者 after 方法:
-```
+```js
 var before = function(fn, beforefn) {
     return function() {
         beforefn.apply(this, arguments);
@@ -168,7 +168,7 @@ a();
 ```
 ####注意:
 值得注意的是,因为函数通过 Function.prototype.before 或者 Function.prototype.after 被装 饰之后,返回的实际上是一个新的函数,如果在原函数上保存了一些属性,那么这些属性会丢失。 代码如下:
-```
+```js
 var func = function() {
     alert(1);
 }
@@ -192,7 +192,7 @@ alert(func.a); //输出: undefined
 
 ###3, 节流函数的实现
 throttle 函数的原理是,将即将被执行的函数用 setTimeout 延迟一段时间执行。如果该次延迟执行还没有完成,则忽略接下来调用该函数的请求。 throttle 函数接受 2 个参数,第一个参数为需要被延迟执行的函数,第二个参数为延迟执行的时 间。具体实现代码如下:
-```
+```js
 var throttle = function(fn, interval) {
     var _self = fn, // 保存需要延迟执行的函数引用
     timer, 
@@ -222,7 +222,7 @@ window.onresize = throttle(function() {
 ```
 ###4, 懒加载函数
 比如我们需要一个在各个浏览器中能够通用的事件绑定函数 addEvent 函数, 最常见的也是不好的写法如下:
-```
+```js
 var addEvent = function(elem, type, handler) {
     if (window.addEventListener) {
         return elem.addEventListener(type, handler, false);
@@ -234,7 +234,7 @@ var addEvent = function(elem, type, handler) {
 ```
 这个函数的缺点是,当它每次被调用的时候都会执行里面的 if 条件分支,虽然执行这些 if
 分支的开销不算大,但也许有一些方法可以让程序避免这些重复的执行过程。下面介绍最佳实践方式:
-```
+```js
 var addEvent = function(elem, type, handler) {
     if (window.addEventListener) {
         addEvent = function(elem, type, handler) {
@@ -254,7 +254,7 @@ var addEvent = function(elem, type, handler) {
 在下一次进入 addEvent 函数的时候,addEvent 函数里不再存在条件分支语句.
 
 ###5, 单例模式
-```
+```js
 var getSingle = function(fn) {
     var result;
     return function() {
@@ -265,7 +265,7 @@ var getSingle = function(fn) {
 上面代码中, result变量因为身在闭包中, 他永远不会被销毁. 在将来的请求中, 如果result已经被赋值, 那么他将返回这个值.
 
 下面举个单例登录框的例子:
-```
+```js
 var createLoginLayer = function() {
     var div = document.createElement('div');
     div.innerHTML = '假装我是登录浮窗';
@@ -287,7 +287,7 @@ document.getElementById('login-btn').onclick = function() {
 将不变的部分与变化的部分分隔开是每个设计模式的主题, 策略模式也不例外, 策略模式的目的就是将算法的使用和算法的实现分离开来.
 先来一个经典的使用场景: 年终奖的计算: 绩效为S的人年终奖是4倍工资, 绩效A的是3倍工资, 绩效B的是2倍工资.
 最佳实现方式就是用策略模式进行代码的封装:
-```
+```js
 var strategies = {
     'S': function(salary) {
         return salary * 4;
@@ -307,7 +307,7 @@ var calculateBonus = function(level, salary) {
 console.log(calculateBonus('A', 20000)); // 60000
 ```
 再来个经典的例子, 验证表单的输入合法性:
-```
+```js
 /* 策略对象 */
 var strategies = {
     isNonEmpty: function(value, errorMsg) {
