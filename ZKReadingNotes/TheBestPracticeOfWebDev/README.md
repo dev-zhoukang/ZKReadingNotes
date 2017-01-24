@@ -107,3 +107,61 @@ $('#test_container').load('contents/template/store.html');
 var infoTemplate = document.getElementById('main_info').innerHTML;
 ```
 注: 也可以用 ***<template>*** 标签, 但是只有高版本的浏览器支持.  
+
+####&5 模板的使用
+
+模板引擎有很多, 这里以 Underscore 中的模板引擎为例.
+使用引擎记住以下几点:  
+* 尽量不要在模板中滥用逻辑块
+* 不要构建太复杂的模板
+* 使用预编译模板  
+  如下代码是 Underscore 中的模板预编译情况
+  ```js
+  // 取得模板并进行预编译
+  var template = _.template($('template').html());
+  // 在需要模板的地方, 可以直接使用预编译后的模板
+  template(templateData);
+  ```
+  下面代码是缓存预编译后的模板方案
+   ```js
+   TemplateCache = {
+     get: function(selector) {
+       if (!this.templates) {
+          this.templates = {};
+       }
+       var template = this.templates[selector];
+       if (!template) {
+         template = _.template(template);
+         this.templates[selector] = template;
+       }
+       
+       return template;
+     }
+   }
+   ```
+   在上述代码中, 可以使用 `TemplateCache.get(test)` 来取得模板了
+   当然, 也可以使用 `Grunt` 插件来预先把模板文件转换成执行速度更快的函数. 性能更好一些.
+   
+####&6 JS模块化开发
+
+* 如果前端模块较少, 可以通过自执行函数来设计模块  
+  ```js
+  var modole = (function() {
+    var length = 0;
+    var init = function() {};
+    var action = function() {};
+    return {
+      init: init
+    }
+  })();
+  ```
+  为了最大量保持模块的独立性, 模块与模块之间最好通过各自的公开接口来通信, 如果模块之间存在很紧的依赖关系, 
+  则在模块内部最好不要直接访问所依赖的外部模块, 而是通过参数的方式传入模块, 代码: 
+  ```js
+  var module1 = (function ($, module2) {
+    // ...
+  })(jQuery, module2);
+  ```
+* 如果前端模块过多, 需要动态加载, 并且模块之间的依赖关系复杂, 则需要更好的方式来管理模块的加载和之间的依赖关系.
+  node 后端推荐 CommonJS, 浏览器端推荐使用 AMD.
+  
