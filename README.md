@@ -39,5 +39,5 @@
 [锋利的jQuery - by 单东林等](https://book.douban.com/subject/10792216/)  
 [精通CSS(高级Web标准解决方案) - by Cameron Moll](https://book.douban.com/subject/4736167/)  
 [学习JavaScript数据结构与算法 - by 格罗纳](https://book.douban.com/subject/26639401/)  
-[JavaScript语言精粹 - 修订版 - by Douglas Crockford](https://book.douban.com/subject/3590768/)
+[JavaScript语言精粹 - 修订版 - by Douglas Crockford](https://book.douban.com/subject/3590768/)  
 [JavaScript权威指南(第6版) - by David Flanagan](https://book.douban.com/subject/10549733/)
