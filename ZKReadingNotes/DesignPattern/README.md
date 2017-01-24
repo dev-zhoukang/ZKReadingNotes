@@ -1,4 +1,4 @@
-##读书笔记-JavasScript设计模式与开发实践
+##读书笔记之 JavasScript设计模式与开发实践 ( 作者: 曾探 )
 
 ###1, call 和 apply
 ####1.1 call 和 apply 的区别
