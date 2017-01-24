@@ -33,7 +33,7 @@
 #### ============   我是华丽的分割线   ============
 
 除了上面已经做笔记的书籍，还有以下的书籍有的还没读完有的还没来得及整理笔记，但都是特别特别好让人爱不释手的书，先占个坑，有空整理笔记。  
-[ES6 标准入门（第2版）- by 阮一峰](https://book.douban.com/subject/26708954/)  
+[ES6 标准入门（第2版）- by 阮一峰](https://book.douban.com/subject/26708954/) ( 感谢阮老师已将书籍开源 [传送门](http://es6.ruanyifeng.com/) )   
 [JavaScript DOM编程艺术 （第2版）- by Jeremy等](https://book.douban.com/subject/6038371/)  
 [CSS揭秘 - by  Lea Verou](https://book.douban.com/subject/26745943/)  
 [锋利的jQuery - by 单东林等](https://book.douban.com/subject/10792216/)  
