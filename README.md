@@ -25,9 +25,9 @@
 还介绍了离线应用和与维护、性能、部署相关的最佳开发实践。本书附录展望了未来的API 和ECMAScript Harmony 规范。
   本书适合有一定编程经验的Web 应用开发人员阅读，也可作为高校及社会实用技术培训相关专业课程的教材。
   
-####- 读书笔记之 [JS代码简洁之道 by ryanmcdermott](./JSCleanCode/README.md)
+####- 读书笔记之 [JS代码整洁之道 by ryanmcdermott](./JSCleanCode/README.md)
 > ZK注: 这篇不是读书笔记，而是原本想翻译，但是后来发现没必要翻译还是保持原汁原味的好。 
-该作者受 Robert C. Martin 的著名的书 [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) 的启发写的关于 JS 的代码简洁之道，  
+该作者受 Robert C. Martin 的著名的书 [Clean Code](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882) 的启发写的关于 JS 的代码整洁之道，  
 非常值得品读。  
 
 #### ============   我是华丽的分割线   ============
