@@ -145,6 +145,7 @@ var infoTemplate = document.getElementById('main_info').innerHTML;
 ####&6 JS模块化开发
 
 * 如果前端模块较少, 可以通过自执行函数来设计模块  
+
   ```js
   var modole = (function() {
     var length = 0;
@@ -156,7 +157,7 @@ var infoTemplate = document.getElementById('main_info').innerHTML;
   })();
   ```
   为了最大量保持模块的独立性, 模块与模块之间最好通过各自的公开接口来通信, 如果模块之间存在很紧的依赖关系, 
-  则在模块内部最好不要直接访问所依赖的外部模块, 而是通过参数的方式传入模块, 代码: 
+  则在模块内部最好不要直接访问所依赖的外部模块, 而是通过参数的方式传入模块, 代码:   
   ```js
   var module1 = (function ($, module2) {
     // ...
