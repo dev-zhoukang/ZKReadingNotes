@@ -12,7 +12,7 @@
 }
 ```
 
-####&2 <script> 标签的属性 (defer 和 async)  
+####&2 `<script>` 标签的属性 (defer 和 async)  
 
 * 按照规范, 这两个属性只有在设置了 src 属性之后才会起作用.
 * defer 是在 HTML4.01 规范中定义的, async 是在 HTML5 规范中定义的.
