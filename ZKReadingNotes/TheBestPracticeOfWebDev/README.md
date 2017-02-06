@@ -130,7 +130,7 @@ $('#test_container').load('contents/template/store.html');
 ```js
 var infoTemplate = document.getElementById('main_info').innerHTML;
 ```
-注: 也可以用 ***<template>*** 标签, 但是只有高版本的浏览器支持.  
+注: 也可以用 ***`<template>`*** 标签, 但是只有高版本的浏览器支持.  
 
 ####&5 模板的使用
 
