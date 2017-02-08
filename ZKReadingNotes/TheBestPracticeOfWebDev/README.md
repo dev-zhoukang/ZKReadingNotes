@@ -281,10 +281,10 @@ var infoTemplate = document.getElementById('main_info').innerHTML;
     > 跟 meta 设置不冲突, 即当关闭自动识别电话号码识别的时候, 仍然可以添加这些链接
 
     ```html
-           <a href="tel:110">110</a>
-           <a href="sms:110">短信内容</a>
-           
-           ```
+    <a href="tel:110">110</a>
+    <a href="sms:110">短信内容</a>
+
+    ```
 
 3. 不要使用 `<ifame>`, 谨慎使用 `<table>`
 
