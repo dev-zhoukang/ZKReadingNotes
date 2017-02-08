@@ -1,6 +1,6 @@
 ##读书笔记之 Web前端开发最佳实践 ( 作者: 党建 )
 
-注: 已经阅读到 P121 (及时更新)
+(已整理完毕)
 
 ###一: 关于 HTML
 
@@ -250,5 +250,78 @@ var infoTemplate = document.getElementById('main_info').innerHTML;
   
 现代浏览器会针对重绘和重排做性能优化, 如把 DOM 操作积累一批后统一做一次重排或重绘. 但以下情况会立即执行重排或重绘, 请求以下的 DOM 元素布局信息: offsetTop/Left/Width/Height, scrillTop/Left/Width/Height, clientTop/Left/Width/Height, getComputedStyle() 或者 currentStyle. 
 因为这些值都是动态计算的, 所以浏览器需要尽快完成页面的绘制, 然后计算返回值, 从而打乱了重排和重绘的优化.  
+
+###四: 关于 移动 eb 前端开发
+
+下面是关于移动 Web 开发的一些最佳实践
+
+1. 在页面 head 中添加必要的 meta 或 link 信息.
+
+    ```html
+    // 移动设备的 viewport 设置
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+    // 移动端 safari 中, 设置页面全屏模式, 此设置只有页面添加到主屏幕后, 从主屏幕启动页面是起作用
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    // 同上, Android 平台的 Chrome 浏览器支持此设置
+    <meta name="mobile-web-app-capable" content="yes">
+    // 移动端 safari 中, 在页面全屏模式的 status bar 的样式
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    // 是否自动识别电话号码
+    <meta name="format-detection" content="telephone=no">
+    // 在 iOS 平台中, 页面添加到主屏幕上时使用的图标
+    <link rel="apple-touch-icon" href="touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="touch-icon-ipad-retina.png">
+    ```
+
+2. 利用移动设备的便利性
+
+    自动识别发短信和打电话
+    > 跟 meta 设置不冲突, 即当关闭自动识别电话号码识别的时候, 仍然可以添加这些链接
+
+    ```html
+           <a href="tel:110">110</a>
+           <a href="sms:110">短信内容</a>
+           
+           ```
+
+3. 不要使用 `<ifame>`, 谨慎使用 `<table>`
+
+    > 大部分情况下, 移动设备中很难适配 `<table>` 和 `<ifame>`, 
+    `<table>` 尽量用 `<ul` 或者 `<ol>` 代替, 如果必须使用, 则参考 jQuery-mobile 的解决方案.  
+    `<ifame>` 可以让第三方网页提供的内容的 API, 如 XML 或者 JSON 格式, 取得内容后按照移动设备的方式重新设计内容的展现.
+
+4. 尽量少用图片, 并使用内联图片代替小图片
+
+    - 使用 Web fonts 技术代替部分图片
+    - 把一些小尺寸的图片转换为内联图片来展现, 并把图片格式转化成 Base64 格式, 借助 Data URLs 技术把图片内容直接写在 CSS 或者 HTML 文档中.
+    > 原理是减少图片的 HTTP 请求数量, 从而加快了页面的展现速度. 内联图片可以是 CSS 背景图, 也可以是页面的图片.
+      
+    ```css
+    li {
+      background: url(data:image/gif;base64,ash*HHJH87HHhgjJGD...) no-repeat left center;
+    }
+    ```    
+    在 HTML 中
+
+    ```html
+    <img alt="star" src="data:image/gif;base64,jhj67GHGHgh...">
+    ```
+
+5. 不要使用 :hover 伪类设置悬停效果, 可以用 :active 代替
+
+6. 合理设置字体大小和行高
+
+    > 字体大小推荐 16 px, 行高推荐 1.5.
+ 
+7. 可以适当关闭长按选中字体或者链接效果
+
+    `-webkit-user-select: none` 和 `-webkit-touch-callout: none`
+
+8. 避免 使用 `window.open` 方法 打开新窗口
+
+    > 在 移动 Web 中, 其打开效果不够理想, 很多浏览器不支持打开弹出新窗口, 有些浏览器会直接在当前页面打开或在新的 tab 中打开.  如 safari 会以 tab 的方式打开指定的链接.  
+    
 
 
